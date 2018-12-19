@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
 		xmlns:controls="http://schemes.grabacr.net/winfx/2014/controls"
-        xmlns:local="clr-namespace:MetroTester"
-        xmlns:dragablztester="clr-namespace:DragablzTester;assembly=DragablzTester"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
         mc:Ignorable="d"
 		Title="Reseacher ProtoType"
 		Width="700"
@@ -16,11 +15,22 @@
 		IsRestoringWindowPlacement="True"
 		UseLayoutRounding="True"
 		TextOptions.TextFormattingMode="Display">
-
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="SideTabItemStyle" TargetType="{x:Type dragablz:DragablzItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemVerticalStyle}">
+                <Setter Property="Width" Value="40" />
+            </Style>-->
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
         <!-- 1. Caption Bar Area -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="23" />
         </Grid.RowDefinitions>
@@ -37,7 +47,7 @@
                     <RowDefinition Height="8" />
                 </Grid.RowDefinitions>
                 <controls:CaptionIcon Grid.Column="0">
-                    <Image Name ="SystemIcon" Width="25" Height="25" />
+                    <Image Name ="SystemIcon" Width="25" Height="25" Margin="0,-6,0,-15" />
                 </controls:CaptionIcon>
                 <TextBlock Grid.Column="1"
 						   Grid.Row="0"
@@ -45,14 +55,57 @@
 						   TextTrimming="CharacterEllipsis"
 						   Foreground="{DynamicResource ForegroundBrushKey}"
 						   FontFamily="Microsoft YaHei UI"
-						   Margin="1,10,2,14"
-						   VerticalAlignment="Center" />
+						   Margin="1,8,2,4"
+						   VerticalAlignment="Center" Grid.RowSpan="2" />
                 <controls:SystemButtons Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Margin="0,2,0,0" Grid.RowSpan="2" />
             </Grid>
         </Border>
 
         <!-- 2. Main Area -->
         <Border Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" x:Name="LeftPanelColumnDefinition" />
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- left panel make sure you configure exactly, and set up the IsEmptyChanged event -->
+                <TabControl TabStripPlacement="Left">
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="90"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Header1"></TabItem>
+                    <TabItem Header="Header2"></TabItem>
+                    <TabItem Header="Header3"></TabItem>
+                </TabControl>
+
+                <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+                <!-- Layout is optional, you could just have a TabablzControl -->
+                <dockablz:Layout Grid.Column="2">
+                    <dragablz:TabablzControl>
+                        <TabItem Header="One">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">Tab Page One</TextBlock>
+                        </TabItem>
+                        <TabItem Header="Two">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">Tab Page Two</TextBlock>
+                        </TabItem>
+                        <TabItem Header="Three">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">Tab Page Three</TextBlock>
+                        </TabItem>
+                    </dragablz:TabablzControl>
+                </dockablz:Layout>
+
+            </Grid>
         </Border>
     </Grid>
 </controls:MetroWindow>

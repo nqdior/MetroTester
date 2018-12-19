@@ -15,6 +15,9 @@
             <DataTemplate DataType="{x:Type local:HeaderWithCloseViewModel}">
                 <local:HeaderWithClose />
             </DataTemplate>
+            <Style TargetType="dragablz:DragablzItemsControl">
+                <Setter Property="Background" Value="Red" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <dragablz:TabablzControl x:Name="TabablzControl" ItemsSource="{Binding Items}" HeaderMemberPath="Header"

@@ -8,5 +8,4 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <local:UserControl1 x:Name="userControl" Margin="0,0,0,0" />
-
 </Window>

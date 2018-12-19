@@ -27,7 +27,13 @@ namespace MetroTester
 
             ThemeService.Current.ChangeTheme(Theme.Dark);
             ThemeService.Current.ChangeAccent(Accent.Blue);
+        }
 
+
+        private void LeftPanelTabControl_OnIsEmptyChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            if (e.NewValue)
+                LeftPanelColumnDefinition.Width = GridLength.Auto;
         }
     }
 }
